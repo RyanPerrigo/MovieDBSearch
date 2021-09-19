@@ -13,7 +13,7 @@ class ApiManager {
 	
 	static let shared = ApiManager()
 	
-	func getMovieInfo(url:String, onCompletion:@escaping(Data)->Void) {
+	func executeGetRequest(url:String, onCompletion:@escaping(Data)->Void) {
 		
 		if let url = URL(string: url) {
 			

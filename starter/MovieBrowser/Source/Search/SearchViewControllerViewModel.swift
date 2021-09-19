@@ -17,16 +17,19 @@ class SearchViewControllerViewModel {
 	
 	func onGoClicked(searchText: String) {
 		if let encodedText = searchText.addingPercentEncoding(withAllowedCharacters: .alphanumerics) {
-			let url = "https://api.themoviedb.org/3/search/movie?api_key=5885c445eab51c7004916b9c0313e2d3&query=\(encodedText)"
+			let url = "https://api.themoviedb.org/3/search/movie?api_key=\(Network.apiKey)&query=\(encodedText)"
 			print(searchText)
-			ApiManager.shared.getMovieInfo(url: url) { data in
+			ApiManager.shared.executeGetRequest(url: url) { data in
 				
 				self.mapResponseData(data: data) { cellModels in
 					self.viewState = cellModels
 				}
+				DispatchQueue.main.async {
+					self.updateViewCallback?()
+				}
 				
 			}
-			self.updateViewCallback?()
+			
 		}
 		
 	}

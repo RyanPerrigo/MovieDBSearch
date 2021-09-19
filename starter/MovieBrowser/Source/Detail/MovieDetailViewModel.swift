@@ -20,9 +20,9 @@ class MovieDetailViewModel {
 	//"https://api.themoviedb.org/3/movie/11/images?api_key=5885c445eab51c7004916b9c0313e2d3&language=en"
 	func generateImageURL() {
 		let decoder = JSONDecoder()
-		let getImageUrlString:String = "https://api.themoviedb.org/3/movie/\(mappedData.id)/images?api_key=5885c445eab51c7004916b9c0313e2d3&language=en"
+		let getImageUrlString:String = "https://api.themoviedb.org/3/movie/\(mappedData.id)/images?api_key=\(Network.apiKey)&language=en"
 		let baseImageURL: String = "https://image.tmdb.org/t/p/original/"
-		ApiManager.shared.getMovieInfo(url: getImageUrlString) { Data in
+		ApiManager.shared.executeGetRequest(url: getImageUrlString) { Data in
 			
 			guard let safeResponseEntity = try? decoder.decode(ImagesResponseEntity.self, from: Data) else {print("CANNOT GET IMAGE DATA") ; return}
 			print("SAFE RESPONSE ENTITY \(safeResponseEntity)")
@@ -39,7 +39,7 @@ class MovieDetailViewModel {
 	}
 	func getMovieImage(urlString: String){
 		
-		ApiManager.shared.getMovieInfo(url: urlString) { data in
+		ApiManager.shared.executeGetRequest(url: urlString) { data in
 			self.upDateImageCallback?(data)
 		}
 	}

@@ -37,7 +37,6 @@ class SearchViewController: UIViewController, UICollectionViewDelegate, UICollec
 		super.viewDidLoad()
 		self.title = "Movie Search"
 		shadedTextFieldHolderView.layer.cornerRadius = 8
-		// Do any additional setup after loading the view.
 		searchTextfield.delegate = self
 		collectionView.delegate = self
 		collectionView.dataSource = self
@@ -52,11 +51,6 @@ class SearchViewController: UIViewController, UICollectionViewDelegate, UICollec
 		
 	}
 	
-	func setDynamicCellHeight(string: String ) {
-		let text = UIFont.boldSystemFont(ofSize: 20)
-		let size = text.sizeOfString(string: string, constrainedToWidth: Double(view.bounds.width))
-		self.layout.itemSize = CGSize(width: UIScreen.main.bounds.width, height: size.height + 55)
-	}
 	
 	
 	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -95,26 +89,8 @@ class SearchViewController: UIViewController, UICollectionViewDelegate, UICollec
 		}
 	
 }
-extension UIFont {
-	func sizeOfString (string: String, constrainedToWidth width: Double) -> CGSize {
-		return NSString(string: string).boundingRect(
-			with: CGSize(width: width, height: .greatestFiniteMagnitude),
-			options: .usesLineFragmentOrigin,
-			attributes: [.font: self],
-			context: nil).size
-	}
-}
-//MARK: - TEXTFIELD DELEGATE
-extension SearchViewController {
-	
-	func textFieldDidChangeSelection(_ textField: UITextField) {
-		if let _ = searchTextfield.text {
-			
-//			viewmodel.updateTextState(text: safeText)
-		}
-	
-	}
-}
+
+
 
 
 
